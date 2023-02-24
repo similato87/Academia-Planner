@@ -1,5 +1,8 @@
 package Controller;
 
+import Model.Course;
+import Model.Student;
+
 public class Init {
 	public void main(String args[]) {
 	Student s1 = new Student(3650173, "Hannah Day", "Fredericton", "Engineering");
