@@ -1,3 +1,5 @@
+package Model;
+
 public class Course {
 	private String code;
 	private String section;

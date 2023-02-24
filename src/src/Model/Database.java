@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.*;
 public class Database{
 	private static Database instance;
