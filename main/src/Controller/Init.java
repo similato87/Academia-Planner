@@ -1,3 +1,5 @@
+package Controller;
+
 public class Init {
 	public void main(String args[]) {
 	Student s1 = new Student(3650173, "Hannah Day", "Fredericton", "Engineering");
