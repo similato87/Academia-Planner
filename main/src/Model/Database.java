@@ -3,14 +3,17 @@ package Model;
 import java.util.*;
 public class Database{
     private static Database instance;
-    private HashMap<Integer,Student> students;
-    private HashMap<String,Course> courses;
+    private HashSet<Student> students;
+    private HashSet<Course> courses;
     //We could use this as a 'logging' feature or something. The history of the session's actions.
-    private HashMap<Integer,Enrollment> enrollments;
+    private HashSet<Enrollment> enrollments;
+    //Transcript probably good here too
 
 
     private Database(){
-        this.students=new HashMap<Integer,Student>();
+        this.students=new HashSet<>();
+        this.courses=new HashSet<>();
+        this.enrollments=new HashSet<>();
     }
 
     public static Database getDB(){

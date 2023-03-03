@@ -12,10 +12,34 @@ public class Enrollment{
     private String letterGrade;
     //Should probably be an enum PASSED,FAILED,WITHDRAWN,INPROGRESS
     private String status;
+    HashMap<Double,String> scheme;
 
     public Enrollment(){
     }
 
+    public Enrollment(int id, Student student, Course course,
+        Date termStart, Date termEnd, double grade, String status){
+            this.id=id;
+            this.student=student;
+            this.course=course;
+            this.termStart=start;
+            this.termEnd=end;
+            this.grade=grade;
+            //Default scheme
+            scheme.put(95.0, "A+");
+            scheme.put(90.0, "A");
+            scheme.put(85.0, "A-");
+            scheme.put(80.0, "B+");
+            scheme.put(75.0, "B");
+            scheme.put(70.0, "B-");
+            scheme.put(65.0, "C+");
+            scheme.put(60.0, "C");
+            scheme.put(55.0, "C-");
+            scheme.put(50.0, "D");
+            scheme.put(0.0,"F");
+            updateLetterGrade();
+            this.status=status;
+    }
     public int getID(){ return id;}
     //Should probably not be modified
     public void setID(int id){ this.id=id; }
@@ -40,22 +64,11 @@ public class Enrollment{
 
     public String getLetterGrade(){ return letterGrade; }
     public void updateLetterGrade() {
-        HashMap<Double,String> scheme = new HashMap<>();
-        scheme.put(95.0, "A+");
-        scheme.put(90.0, "A");
-        scheme.put(85.0, "A-");
-        scheme.put(80.0, "B+");
-        scheme.put(75.0, "B");
-        scheme.put(70.0, "B-");
-        scheme.put(65.0, "C+");
-        scheme.put(60.0, "C");
-        scheme.put(55.0, "C-");
-        scheme.put(50.0, "D");
-        scheme.put(0.0,"F");
         double grade=this.grade;
         for(double g: scheme.keySet()){
             if(grade>=g){
                 letterGrade=scheme.get(g);
+                break;
             }
         }
     }
