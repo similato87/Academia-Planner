@@ -1,7 +1,8 @@
 package Model;
 
 import java.util.*;
-public class Enrollment{
+public class Enrollment implements Registration
+{
     private int id;
     private Student student;
     private Course course;
