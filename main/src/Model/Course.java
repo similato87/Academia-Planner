@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 import Model.Department;
 public class Course {
 	private String code;
