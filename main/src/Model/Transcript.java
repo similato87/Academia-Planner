@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Transcript implements Registration 
 {
-	List<Enrollment> enrollments;
+	List<Registration> enrollments;
 	
-	public Transcript(List<Enrollment> enrollments)
+	public Transcript(List<Registration> enrollments)
 	{
 		this.enrollments = enrollments;
 	}
@@ -19,7 +19,7 @@ public class Transcript implements Registration
 	public double getGrade() 
 	{
 		double gpa = 0;
-		for(Enrollment e: enrollments)
+		for(Registration e: enrollments)
 		{
 			gpa += e.getGrade();
 		}
