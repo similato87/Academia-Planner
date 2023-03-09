@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import Model.Department;
 public class Course {
@@ -11,6 +12,7 @@ public class Course {
 	private String description;
 	private Department department;
 	private ArrayList<String> prerequisites;
+	private HashMap<Double,String> scheme;
 	//Techinically we could have a list of class times in some sort of structure but we might not wanna mess with that at this time.
 
 	public Course(){
@@ -25,6 +27,18 @@ public class Course {
 		this.description=description;
 		this.department=department;
 		this.prerequisites=prerequisites;
+		//Default scheme
+        scheme.put(95.0, "A+");
+        scheme.put(90.0, "A");
+        scheme.put(85.0, "A-");
+        scheme.put(80.0, "B+");
+        scheme.put(75.0, "B");
+        scheme.put(70.0, "B-");
+        scheme.put(65.0, "C+");
+        scheme.put(60.0, "C");
+        scheme.put(55.0, "C-");
+        scheme.put(50.0, "D");
+        scheme.put(0.0,"F");
 	}
 
 	public String getCode(){ return code; }
@@ -44,6 +58,9 @@ public class Course {
 
 	public Department getDepartment(){ return department; }
 	public void setDepartment(Department department){ this.department=department;}
+	
+	public HashMap<Double,String> getScheme(){ return scheme;}
+	public void setScheme(HashMap<Double,String> scheme) {this.scheme=scheme;}
 
 	public ArrayList<String> getPreRequisites(){ return prerequisites; }
 	public void setPrerequisites(ArrayList<String> prerequisites){ this.prerequisites=prerequisites; }
