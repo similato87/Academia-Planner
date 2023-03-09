@@ -1,8 +1,7 @@
 package Model;
 
 import java.util.*;
-public class Enrollment implements Registration
-{
+public class Enrollment implements Registration{
     private int id;
     private Student student;
     private Course course;
@@ -23,8 +22,8 @@ public class Enrollment implements Registration
             this.id=id;
             this.student=student;
             this.course=course;
-            this.termStart=start;
-            this.termEnd=end;
+            this.termStart=termStart;
+            this.termEnd=termEnd;
             this.grade=grade;
             //Default scheme
             scheme.put(95.0, "A+");

@@ -2,6 +2,7 @@ package Controller;
 
 import Model.CSDepartment;
 import Model.Department;
+import Model.ECEDepartment;
 import Model.SWEDepartment;
 
 public class DepartmentFactory {
@@ -10,7 +11,10 @@ public class DepartmentFactory {
             return new CSDepartment();
         } else if (departmentType.equalsIgnoreCase("SWE")) {
             return new SWEDepartment();
-        } else {
+        } else if( departmentType.equalsIgnoreCase("ECE")){
+            return new ECEDepartment();
+        }
+        else {
             throw new IllegalArgumentException("Invalid department type: " + departmentType);
         }
     }
