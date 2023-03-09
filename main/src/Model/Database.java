@@ -1,6 +1,8 @@
 package Model;
 
 import java.util.*;
+import Controller.*;
+import Controller.Iterator;
 public class Database{
     private static Database instance;
     private HashSet<Student> students;
@@ -25,25 +27,47 @@ public class Database{
     }
 
     public Student getStudent(int id){
-        return students.get(id);
+        Iterator<Student> itr = new StudentIterator(students);
+		while(itr.hasNext()) {
+            Student val=itr.getNext();
+            if(val.getStudentID()==id){
+                return val;
+            }
+		}
+        return null;
+    }
+
+    public void addStudent(Student s){
+        students.add(s);
     }
 
     //Could possibly return students.values() for a collection of Students if we want to observe all students instead of the map directly
-    public HashMap getStudentMap(){
+    public HashSet<Student> getStudentMap(){
         return students;
     }
 
     //Same thing with courses.
-    public HashMap getCourseMap(){
+    public HashSet<Course> getCourseMap(){
         return courses;
     }
 
     public Course getCourse(String courseCode){
-        return courses.get(courseCode);
+        Iterator<Course> itr=new CourseIterator(courses);
+        while(itr.hasNext()) {
+            Course val=itr.getNext();
+            if(val.getCode()==courseCode){
+                return val;
+            }
+		}
+        return null;
+    }
+
+    public void addCourse(Course c){
+        courses.add(c);
     }
 
     //Same with enrollments
-    public HashMap getEnrollments(){
+    public HashSet<Enrollment> getEnrollments(){
         return enrollments;
     }
 }

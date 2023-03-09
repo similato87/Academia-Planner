@@ -2,7 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 
-import Model.Department;
 public class Course {
 	private String code;
 	private String section;
@@ -15,6 +14,15 @@ public class Course {
 
 	public Course(){
 		prerequisites=new ArrayList<String>();
+	}
+	public Course(String code, String section, int creditHours, String name, String description, Department department){
+		this.code=code;
+		this.section=section;
+		this.creditHours=creditHours;
+		this.name=name;
+		this.description=description;
+		this.department=department;
+		this.prerequisites=new ArrayList<String>();
 	}
 
 	public Course(String code, String section, int creditHours, String name, String description, Department department, ArrayList<String> prerequisites){

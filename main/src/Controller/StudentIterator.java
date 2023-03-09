@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 import Model.Student;
 
-public class StudentIterator implements Iterator{
+public class StudentIterator implements Iterator<Student>{
 	private int currentPosition = 0;
 	private HashSet<Student> stuSet;
 	private ArrayList<Student> stuList;
@@ -39,7 +39,7 @@ public class StudentIterator implements Iterator{
 		Student s2 = new Student(3470952, "John Doe", "Fredericton", "Business");
 		set.add(s1);
 		set.add(s2);
-		Iterator itr = new StudentIterator(set);
+		Iterator<Student> itr = new StudentIterator(set);
 		while(itr.hasNext()) {
 			System.out.println(itr.getNext());
 		}

@@ -17,11 +17,13 @@ public class EnrollmentProxy extends Enrollment {
         System.out.println("Please enter password:");
         String input = scanner.nextLine();
         if (!input.equals(password)) {
+            scanner.close();
             throw new SecurityException("Incorrect password");
         }
         if (enrollment == null) {
             enrollment = new Enrollment();
         }
+        scanner.close();
     }
     public void editEnrollment() {
         authenticate();
