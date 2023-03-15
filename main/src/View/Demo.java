@@ -3,11 +3,7 @@ package View;
 import Controller.DepartmentFactory;
 import Controller.EnrollmentBuilder;
 import Controller.EnrollmentProxy;
-import Controller.Transcript;
-import Model.Course;
-import Model.Department;
-import Model.Student;
-import Model.CSDepartment;
+import Model.*;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -29,22 +25,32 @@ public class Demo {
         Course c3 = new Course("SWE4403", "FR01A", 4, "Software Design Patterns and Architecture", "GoF software design patterns", swedprt);
 
         // add enrollment
-        EnrollmentBuilder e1 = new EnrollmentBuilder();
-        e1.setId(1);
-        e1.setStudent(s1);
-        e1.setCourse(c1);
-        e1.setGrade(75);
-        e1.setStatus("pass");
-        e1.setTermStart(new Date());
+        EnrollmentBuilder enrollmentBuilder = new EnrollmentBuilder();
+        enrollmentBuilder.setId(1);
+        enrollmentBuilder.setStudent(s1);
+        enrollmentBuilder.setCourse(c1);
+        enrollmentBuilder.setGrade(75);
+        enrollmentBuilder.setStatus("pass");
+        enrollmentBuilder.setTermStart(new Date());
         TimeUnit.SECONDS.sleep(1);
-        e1.setTermEnd(new Date());
-        e1.build();
+        enrollmentBuilder.setTermEnd(new Date());
+        Enrollment e1 = enrollmentBuilder.build();
         // modify grades
+        
         EnrollmentProxy ep1 = new EnrollmentProxy("123");
         // todo edit enrollment
 //        ep1.editEnrollment("123",);
         // generate transcript
-        Transcript t1 = new Transcript();
+//        Transcript t1 = new Transcript();
+
+
+        RecordAdapter recordAdapter= new RecordAdapter(e1);
+        String record = new String();
+        record+=recordAdapter.getCode()+" "+recordAdapter.getCourseName()+" "+recordAdapter.getLetterGrade()+" "+recordAdapter.getPoints();
+        System.out.println(record);
+
+
+
 
 
     }

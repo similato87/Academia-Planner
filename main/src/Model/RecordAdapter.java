@@ -13,10 +13,11 @@ public class RecordAdapter implements Record {
 	
 	private String status;
 	
-	public TEnrollmentAdapter(Enrollment enrollment) {
+	public RecordAdapter(Enrollment enrollment) {
 		this.enrollment=enrollment;
 		this.course= enrollment.getCourse();
 		this.creditHours = course.getCreditHours();
+		ptScheme= new HashMap<String,Double>();
 		setPointScheme();
 		calculatePoints();
 		updateLG();
@@ -40,6 +41,7 @@ public class RecordAdapter implements Record {
 		if (status == "INPROGRESS") {letterGrade = "INP";}
 		else {
 			HashMap<Double, String> scheme = course.getScheme();
+
 			double grade=enrollment.getGrade();
 	        	for(double g: scheme.keySet()){
 	        		if(grade>=g){

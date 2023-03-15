@@ -30,12 +30,15 @@ public class Transcript implements Registration
 
 	public String toString()
 	{
-		System.out.println("Transcript of " + student.getStudentID());
+		StringBuffer print = new StringBuffer();
+		print.append("Transcript of " + student.getStudentID());
+
 		for (Enrollment e: enrollments)
 		{
-			System.out.println(e.getCourse().getName() + "\t" + e.getCourse().getCreditHours() + "\t" + e.getGrade());
+			print.append(e.getCourse().getName() + "\t" + e.getCourse().getCreditHours() + "\t" + e.getGrade());
 		}
-		System.out.println("GPA: " + this.getGrade());
+		print.append("GPA: " + this.getGrade());
+		return String.valueOf(print);
 	}
 
 }

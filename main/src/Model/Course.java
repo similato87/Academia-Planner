@@ -25,6 +25,19 @@ public class Course {
 		this.description=description;
 		this.department=department;
 		this.prerequisites=new ArrayList<String>();
+		//Default scheme
+		this.scheme = new HashMap<Double,String>();
+		scheme.put(95.0, "A+");
+		scheme.put(90.0, "A");
+		scheme.put(85.0, "A-");
+		scheme.put(80.0, "B+");
+		scheme.put(75.0, "B");
+		scheme.put(70.0, "B-");
+		scheme.put(65.0, "C+");
+		scheme.put(60.0, "C");
+		scheme.put(55.0, "C-");
+		scheme.put(50.0, "D");
+		scheme.put(0.0,"F");
 	}
 
 	public Course(String code, String section, int creditHours, String name, String description, Department department, ArrayList<String> prerequisites){
