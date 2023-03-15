@@ -5,9 +5,9 @@ import java.util.List;
 public class Transcript implements Registration 
 {
 	Student student;
-	List<Registration> enrollments;
+	List<Enrollment> enrollments;
 	
-	public Transcript(Student student, List<Registration> enrollments)
+	public Transcript(Student student, List<Enrollment> enrollments)
 	{
 		this.student = student;
 		this.enrollments = enrollments;
