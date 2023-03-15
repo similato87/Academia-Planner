@@ -8,11 +8,8 @@ public class Enrollment implements Registration{
     private Date termStart;
     private Date termEnd;
     private double grade;
-    //Take from a course grading scheme or a default grading?
-    private String letterGrade;
-    //Should probably be an enum PASSED,FAILED,WITHDRAWN,INPROGRESS
+    //Should probably be an enum WITHDRAWN,INPROGRESS
     private String status;
-    HashMap<Double,String> scheme;
 
     public Enrollment(){
     }
@@ -25,19 +22,6 @@ public class Enrollment implements Registration{
             this.termStart=termStart;
             this.termEnd=termEnd;
             this.grade=grade;
-            //Default scheme
-            scheme.put(95.0, "A+");
-            scheme.put(90.0, "A");
-            scheme.put(85.0, "A-");
-            scheme.put(80.0, "B+");
-            scheme.put(75.0, "B");
-            scheme.put(70.0, "B-");
-            scheme.put(65.0, "C+");
-            scheme.put(60.0, "C");
-            scheme.put(55.0, "C-");
-            scheme.put(50.0, "D");
-            scheme.put(0.0,"F");
-            updateLetterGrade();
             this.status=status;
     }
     public int getID(){ return id;}
@@ -61,17 +45,6 @@ public class Enrollment implements Registration{
 
     public double getGrade(){ return grade; }
     public void setGrade(double grade){ this.grade=grade; }
-
-    public String getLetterGrade(){ return letterGrade; }
-    public void updateLetterGrade() {
-        double grade=this.grade;
-        for(double g: scheme.keySet()){
-            if(grade>=g){
-                letterGrade=scheme.get(g);
-                break;
-            }
-        }
-    }
 
     public String getStatus(){ return status; }
     public void setStatus(String status){ this.status=status; }

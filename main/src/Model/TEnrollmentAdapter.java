@@ -1,0 +1,77 @@
+package Model;
+
+import java.util.HashMap;
+
+public class TEnrollmentAdapter implements TEnrollment {
+	private Enrollment enrollment;
+	private Course course;
+	HashMap<String,Double> ptScheme;
+	private int creditHours;
+	
+	private String letterGrade;
+	private double points;
+	
+	private String status;
+	
+	public TEnrollmentAdapter(Enrollment enrollment) {
+		this.enrollment=enrollment;
+		this.course= enrollment.getCourse();
+		this.creditHours = course.getCreditHours();
+		setPointScheme();
+		calculatePoints();
+		updateLG();
+	}
+	
+	private void setPointScheme() {
+		ptScheme.put("A+", 4.3);
+        ptScheme.put("A", 4.0);
+        ptScheme.put("A-", 3.7);
+        ptScheme.put("B+", 3.3);
+        ptScheme.put("B", 3.0);
+        ptScheme.put("B-", 2.7);
+        ptScheme.put("C+", 2.3);
+        ptScheme.put("C", 2.0);
+        ptScheme.put("C-", 1.7);
+	}
+	
+	private void updateLG() {
+		status = enrollment.getStatus();
+		if (status == "WITHDRAWN") {letterGrade = "W";}
+		if (status == "INPROGRESS") {letterGrade = "INP";}
+		else {
+			HashMap<Double, String> scheme = course.getScheme();
+			double grade=enrollment.getGrade();
+	        	for(double g: scheme.keySet()){
+	        		if(grade>=g){
+	        			letterGrade=scheme.get(g);
+	        			break;
+	        		}
+	        	}
+		}
+	}
+	
+	private void calculatePoints() {
+		for(String g: ptScheme.keySet()){
+    		if(letterGrade == g){
+    			points=ptScheme.get(g)*creditHours;
+    		} else {points = 0.0;}
+    	}
+	}
+	
+	
+	@Override
+	public String getCode() {return course.getCode();}	
+	
+	@Override
+	public String getCourseName() {return course.getName();}
+		
+	
+	@Override
+	public String getLetterGrade() {return letterGrade;}
+	
+	@Override
+	public double getCreditHrs() {return creditHours;}
+		
+	@Override
+	public double getPoints() {return points;}
+}
