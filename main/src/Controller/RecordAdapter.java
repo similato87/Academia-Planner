@@ -1,4 +1,8 @@
-package Model;
+package Controller;
+
+import Model.Course;
+import Model.Enrollment;
+import Model.Record;
 
 import java.util.HashMap;
 
@@ -18,9 +22,12 @@ public class RecordAdapter implements Record {
 		this.course= enrollment.getCourse();
 		this.creditHours = course.getCreditHours();
 		ptScheme= new HashMap<String,Double>();
+
 		setPointScheme();
-		calculatePoints();
 		updateLG();
+
+		calculatePoints();
+
 	}
 	
 	private void setPointScheme() {
@@ -44,9 +51,12 @@ public class RecordAdapter implements Record {
 
 			double grade=enrollment.getGrade();
 	        	for(double g: scheme.keySet()){
+
 	        		if(grade>=g){
-	        			letterGrade=scheme.get(g);
-	        			break;
+
+	        			letterGrade=scheme.get(grade);
+
+						break;
 	        		}
 	        	}
 		}
@@ -55,8 +65,10 @@ public class RecordAdapter implements Record {
 	private void calculatePoints() {
 		for(String g: ptScheme.keySet()){
     		if(letterGrade == g){
-    			points=ptScheme.get(g)*creditHours;
-    		} else {points = 0.0;}
+
+    			points=ptScheme.get(letterGrade)*creditHours;
+    			break;
+    		}
     	}
 	}
 	

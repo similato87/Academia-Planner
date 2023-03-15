@@ -70,4 +70,5 @@ public class Database{
     public HashSet<Enrollment> getEnrollments(){
         return enrollments;
     }
+
 }

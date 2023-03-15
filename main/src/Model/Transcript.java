@@ -20,24 +20,26 @@ public class Transcript implements Registration
 	
 	public double getGrade() 
 	{
-		double gpa = 0;
+		double average_percentage = 0;
 		for(Enrollment e: enrollments)
 		{
-			gpa += e.getGrade();
+			average_percentage += e.getGrade();
 		}
-		return gpa/enrollments.size();
+
+
+		return average_percentage/enrollments.size();
 	}
 
 	public String toString()
 	{
 		StringBuffer print = new StringBuffer();
-		print.append("Transcript of " + student.getStudentID());
+		print.append("Transcript of " +student.getName()+"(ID:"+ student.getStudentID()+")"+"\n");
 
 		for (Enrollment e: enrollments)
 		{
-			print.append(e.getCourse().getName() + "\t" + e.getCourse().getCreditHours() + "\t" + e.getGrade());
+			print.append(e.getCourse().getName() + "\t" + e.getCourse().getCreditHours() + "\t" + e.getGrade()+"\n");
 		}
-		print.append("GPA: " + this.getGrade());
+		print.append("Average Percentage: " + this.getGrade()+"\n");
 		return String.valueOf(print);
 	}
 

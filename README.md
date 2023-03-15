@@ -8,11 +8,11 @@ Classes: EnrollmentProxy
 - **Builder** (enrollments)
 Classes: EnrollmentBuilder
 - **Factory method** (department)
-Interface: Department, Classes: CS, SWE
-- **Decorator** (prerequisites)
-Classes: CourseReg, RegWithPrereq
-- **Iterator** (enrollments, students, courses)
-Interface: Iterator, Classes: StudentIterator
+Interface: Department, Classes: CSDepartment, SWEDepartment, ECEDepartment
+- **Adaptor** (record, recordAdaptor)
+Classes: Record, RecordAdaptor
+- **Iterator** (students, courses)
+Interface: Iterator, Classes: StudentIterator, CourseIterator
 - **Composite** (enrollment, transcript)
-Interface: Registration, Classes: Enrollments, Transcript 
+Interface: Registration, Classes: Transcript 
 

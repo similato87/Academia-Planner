@@ -86,4 +86,13 @@ public class Course {
 	public ArrayList<String> getPreRequisites(){ return prerequisites; }
 	public void setPrerequisites(ArrayList<String> prerequisites){ this.prerequisites=prerequisites; }
 	//Equals method needed?
+
+
+	@Override
+	public String toString() {
+		return "Course[" +
+				"code='" + code + '\'' +
+				", name='" + name + '\'' +
+				']';
+	}
 }
