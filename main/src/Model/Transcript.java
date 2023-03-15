@@ -21,7 +21,7 @@ public class Transcript implements Registration
 	public double getGrade() 
 	{
 		double gpa = 0;
-		for(Registration e: enrollments)
+		for(Enrollment e: enrollments)
 		{
 			gpa += e.getGrade();
 		}
@@ -31,7 +31,7 @@ public class Transcript implements Registration
 	public String toString()
 	{
 		System.out.println("Transcript of " + student.getStudentID());
-		for (Registration e: enrollments)
+		for (Enrollment e: enrollments)
 		{
 			System.out.println(e.getCourse().getName() + "\t" + e.getCourse().getCreditHours() + "\t" + e.getGrade());
 		}
