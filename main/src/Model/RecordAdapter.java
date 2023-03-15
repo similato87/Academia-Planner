@@ -2,7 +2,7 @@ package Model;
 
 import java.util.HashMap;
 
-public class TEnrollmentAdapter implements TEnrollment {
+public class RecordAdapter implements Record {
 	private Enrollment enrollment;
 	private Course course;
 	HashMap<String,Double> ptScheme;
