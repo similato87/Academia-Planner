@@ -36,6 +36,7 @@ public class Course {
 		this.department=department;
 		this.prerequisites=prerequisites;
 		//Default scheme
+		scheme=new HashMap<>();
         scheme.put(95.0, "A+");
         scheme.put(90.0, "A");
         scheme.put(85.0, "A-");

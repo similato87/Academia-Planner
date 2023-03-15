@@ -5,9 +5,9 @@ import java.util.List;
 public class Transcript implements Registration 
 {
 	Student student;
-	List<Registration> enrollments;
+	List<Enrollment> enrollments;
 	
-	public Transcript(Student student, List<Registration> enrollments)
+	public Transcript(Student student, List<Enrollment> enrollments)
 	{
 		this.student = student;
 		this.enrollments = enrollments;
@@ -30,12 +30,13 @@ public class Transcript implements Registration
 
 	public String toString()
 	{
-		System.out.println("Transcript of " + student.getStudentID());
-		for (Registration e: enrollments)
+		String str="Transcript of " + student.getStudentID()+"\n";
+		for (Enrollment e: enrollments)
 		{
-			System.out.println(e.getCourse().getName() + "\t" + e.getCourse().getCreditHours() + "\t" + e.getGrade());
+			str+=e.getCourse().getName() + "\t" + e.getCourse().getCreditHours() + "\t" + e.getGrade()+"\n";
 		}
-		System.out.println("GPA: " + this.getGrade());
+		str+="GPA: " + this.getGrade()+"\n";
+		return str;
 	}
 
 }

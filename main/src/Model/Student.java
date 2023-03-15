@@ -34,4 +34,11 @@ public class Student {
     public String toString() {
     	return "Student: " + this.name + "(" + studentID + "), " + program + ", " + campus;
     }
+
+    public boolean equals(Student b){
+        return this.studentID==b.studentID
+            && this.name==b.name
+            && this.campus==b.campus
+            && this.program==b.program;
+    }
 }
