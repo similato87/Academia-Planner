@@ -2,8 +2,15 @@ package View;
 
 import java.util.*;
 
-import Controller.DepartmentFactory;
-import Model.*;
+import factory_method.DepartmentFactory;
+import base.Course;
+import base.Student;
+import factory_method.CSDepartment;
+import factory_method.Department;
+import factory_method.ECEDepartment;
+import factory_method.SWEDepartment;
+import singleton.Database;
+
 public class Program{
 	private static String prompt=
 		"0.) Exit Program\n"+
