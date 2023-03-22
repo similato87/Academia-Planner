@@ -13,6 +13,7 @@ public class EnrollmentBuilder{
     private Date termEnd;
     private double grade;
     private String status;
+    private Enrollment e;
 	public EnrollmentBuilder(){}
 
 	public EnrollmentBuilder setId(int id){
@@ -51,6 +52,7 @@ public class EnrollmentBuilder{
     }
 
     public Enrollment build(){
-        return new Enrollment(id,student,course,termStart,termEnd,grade,status);
+        e = new Enrollment(id,student,course,termStart,termEnd,grade,status);
+	return e;
     }
 }

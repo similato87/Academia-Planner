@@ -26,7 +26,7 @@ public class EnrollmentProxy extends Enrollment {
         }
 //        scanner.close();
     }
-    public void editEnrollment(String inputPassword,Enrollment enrollment,Double newGrade) {
+    public void editGrade(String inputPassword, Enrollment enrollment, Double newGrade) {
         authenticate(inputPassword);
         enrollment.setGrade(newGrade);
 

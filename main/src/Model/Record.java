@@ -1,6 +1,6 @@
 package Model;
 
-public interface TEnrollment {
+public interface Record {
 	public String getCode();
 	public String getCourseName();
 	public String getLetterGrade();

@@ -1,5 +1,7 @@
 package View;
 
+import Model.*;
+
 import java.util.*;
 import Controller.Iterator;
 import Model.*;
@@ -14,6 +16,7 @@ public class Program{
 		"4.) Generate Transcript\n"+
 		"5.) Edit an enrollment\n\n"+
 		"Your choice: ";
+
 	public static void main(String[] args) {
 		init();
 		boolean quit=false;
@@ -56,7 +59,7 @@ public class Program{
 		db.addStudent(new Student(3470952, "John Doe", "Fredericton", "Business"));
 		db.addStudent(new Student(3456798, "Jane Doe", "Saint John", "Computer Science"));
 		db.addStudent(new Student(3579231, "Camila Paez", "Fredericton", "Engineering"));
-	
+
 		String s = "This course introduces concepts of software design patterns and architecture.";
 		db.addCourse(new Course("SWE4403", "FR01A", 4, "Software Design Patterns and Architecture", s, new SWEDepartment()));
 		db.addCourse(new Course("CS1073", "FR01A", 4, "Java I", "Introduction to Java I", new CSDepartment()));
@@ -129,6 +132,8 @@ public class Program{
 			Database.getDB().addCourse(new Course(code,section,hours,name,description,department));
 			return;
 		}
+		Department department=createDepartment(dep);
+    
 		System.out.print("Please input the Course's Prerequisites if there are any\nFormat: Course1 Course2 ...");
 		//Consume the newline that have remained from s.next
 		s.nextLine();

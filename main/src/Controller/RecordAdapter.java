@@ -1,8 +1,12 @@
-package Model;
+package Controller;
+
+import Model.Course;
+import Model.Enrollment;
+import Model.Record;
 
 import java.util.HashMap;
 
-public class TEnrollmentAdapter implements TEnrollment {
+public class RecordAdapter implements Record {
 	private Enrollment enrollment;
 	private Course course;
 	HashMap<String,Double> ptScheme;
@@ -13,13 +17,17 @@ public class TEnrollmentAdapter implements TEnrollment {
 	
 	private String status;
 	
-	public TEnrollmentAdapter(Enrollment enrollment) {
+	public RecordAdapter(Enrollment enrollment) {
 		this.enrollment=enrollment;
 		this.course= enrollment.getCourse();
 		this.creditHours = course.getCreditHours();
+		ptScheme= new HashMap<String,Double>();
+
 		setPointScheme();
-		calculatePoints();
 		updateLG();
+
+		calculatePoints();
+
 	}
 	
 	private void setPointScheme() {
@@ -40,11 +48,15 @@ public class TEnrollmentAdapter implements TEnrollment {
 		if (status == "INPROGRESS") {letterGrade = "INP";}
 		else {
 			HashMap<Double, String> scheme = course.getScheme();
+
 			double grade=enrollment.getGrade();
 	        	for(double g: scheme.keySet()){
+
 	        		if(grade>=g){
-	        			letterGrade=scheme.get(g);
-	        			break;
+
+	        			letterGrade=scheme.get(grade);
+
+						break;
 	        		}
 	        	}
 		}
@@ -53,8 +65,10 @@ public class TEnrollmentAdapter implements TEnrollment {
 	private void calculatePoints() {
 		for(String g: ptScheme.keySet()){
     		if(letterGrade == g){
-    			points=ptScheme.get(g)*creditHours;
-    		} else {points = 0.0;}
+
+    			points=ptScheme.get(letterGrade)*creditHours;
+    			break;
+    		}
     	}
 	}
 	
