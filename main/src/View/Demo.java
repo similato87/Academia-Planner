@@ -72,8 +72,10 @@ public class Demo {
         db.addCourse(c1);
         db.addCourse(c2);
         db.addCourse(c3);
-        System.out.println( db.getStudent(3333333));
-        System.out.println( db.getCourse("CS1073"));
+        System.out.println("Search for student with ID: 3333333")
+        System.out.println(db.getStudent(3333333));
+        System.out.println("Search for course with code: CS1073")
+        System.out.println(db.getCourse("CS1073"));
 
 
 
