@@ -130,6 +130,7 @@ public class Program{
 		s.close();
 		System.out.println("Adding new course to Database.");
 		Database.getDB().addCourse(new Course(code,section,hours,name,description,department, courseList));
+		
 	}
 
 	private static void addStudentToCourse(){
