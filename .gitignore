@@ -1,3 +1,9 @@
 /.idea/
 .vs/*
 /bin/
+./out/
+.project
+.classpath
+/doc/
+/obj/
+/data/
