@@ -1,7 +1,9 @@
 package base;
 
+import factory_method.CSDepartmentFactory;
 import factory_method.DepartmentFactory;
 import builder.EnrollmentBuilder;
+import factory_method.SWEDepartmentFactory;
 import proxy.EnrollmentProxy;
 import adapator.RecordAdapter;
 import composite.Transcript;
@@ -21,8 +23,9 @@ public class Demo {
         Student s2 = new Student(4444444, "Mary Smith", "Saint John", "Computer Science");
 
         // Yuzhuo Factory method
-        Department csdprt = DepartmentFactory.createDepartment("CS");
-        Department swedprt = DepartmentFactory.createDepartment("SWE");
+
+        Department csdprt = new CSDepartmentFactory().createDepartment();
+        Department swedprt = new SWEDepartmentFactory().createDepartment();
 
         // init three course to show different prerequsites and departments
         Course c1 = new Course("CS1073", "FR01A", 4, "Java I", "Introduction to Java I", csdprt);

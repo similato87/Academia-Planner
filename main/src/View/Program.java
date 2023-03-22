@@ -2,13 +2,9 @@ package View;
 
 import java.util.*;
 
-import factory_method.DepartmentFactory;
+import factory_method.*;
 import base.Course;
 import base.Student;
-import factory_method.CSDepartment;
-import factory_method.Department;
-import factory_method.ECEDepartment;
-import factory_method.SWEDepartment;
 import singleton.Database;
 
 public class Program{
@@ -120,7 +116,7 @@ public class Program{
 		String description=s.nextLine();
 		System.out.print("Please input the Course's Department");
 		String dep=s.next();
-		Department department=DepartmentFactory.createDepartment(dep);
+		Department department=createDepartment(dep);
 		System.out.print("Please input the Course's Prerequisites if there are any\nFormat: Course1 Course2 ...");
 		String[] courses=s.nextLine().split(" ");
 		ArrayList<String> courseList=new ArrayList<>();
@@ -138,6 +134,19 @@ public class Program{
 	}
 
 	private static void addStudentToCourse(){
-		//Do stuff
+		//TBD
+	}
+
+	private static Department createDepartment(String departmentType){
+		if (departmentType.equalsIgnoreCase("CS")) {
+			return new CSDepartmentFactory().createDepartment();
+		} else if (departmentType.equalsIgnoreCase("SWE")) {
+			return new SWEDepartmentFactory().createDepartment();
+		} else if( departmentType.equalsIgnoreCase("ECE")){
+			return new ECEDepartmentFactory().createDepartment();
+		}
+		else {
+			throw new IllegalArgumentException("Invalid department type: " + departmentType);
+		}
 	}
 }
