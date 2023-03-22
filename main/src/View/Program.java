@@ -1,18 +1,20 @@
 package View;
 
+import Model.*;
+
 import java.util.*;
 
-import Controller.DepartmentFactory;
-import Model.*;
+
+
 public class Program{
 	private static String prompt=
-		"0.) Exit Program\n"+
-		"1.) Add Student\n"+
-		"2.) Add Course\n"+
-		"3.) Add Student to course(Enrollment)\n"+
-		"4.) Generate Transcript\n"+
-		"5.) Edit an enrollment\n\n"+
-		"Your choice: ";
+			"0.) Exit Program\n"+
+					"1.) Add Student\n"+
+					"2.) Add Course\n"+
+					"3.) Add Student to course(Enrollment)\n"+
+					"4.) Generate Transcript\n"+
+					"5.) Edit an enrollment\n\n"+
+					"Your choice: ";
 	public static void main(String[] args) {
 		init();
 		boolean quit=false;
@@ -51,7 +53,7 @@ public class Program{
 		db.addStudent(new Student(3470952, "John Doe", "Fredericton", "Business"));
 		db.addStudent(new Student(3456798, "Jane Doe", "Saint John", "Computer Science"));
 		db.addStudent(new Student(3579231, "Camila Paez", "Fredericton", "Engineering"));
-	
+
 		String s = "This course introduces concepts of software design patterns and architecture.";
 		db.addCourse(new Course("SWE4403", "FR01A", 4, "Software Design Patterns and Architecture", s, new SWEDepartment()));
 		db.addCourse(new Course("CS1073", "FR01A", 4, "Java I", "Introduction to Java I", new CSDepartment()));
@@ -113,7 +115,7 @@ public class Program{
 		String description=s.nextLine();
 		System.out.print("Please input the Course's Department");
 		String dep=s.next();
-		Department department=DepartmentFactory.createDepartment(dep);
+		Department department=createDepartment(dep);
 		System.out.print("Please input the Course's Prerequisites if there are any\nFormat: Course1 Course2 ...");
 		String[] courses=s.nextLine().split(" ");
 		ArrayList<String> courseList=new ArrayList<>();
@@ -131,6 +133,19 @@ public class Program{
 	}
 
 	private static void addStudentToCourse(){
-		//Do stuff
+		//TBD
+	}
+
+	private static Department createDepartment(String departmentType){
+		if (departmentType.equalsIgnoreCase("CS")) {
+			return new CSDepartmentFactory().createDepartment();
+		} else if (departmentType.equalsIgnoreCase("SWE")) {
+			return new SWEDepartmentFactory().createDepartment();
+		} else if( departmentType.equalsIgnoreCase("ECE")){
+			return new ECEDepartmentFactory().createDepartment();
+		}
+		else {
+			throw new IllegalArgumentException("Invalid department type: " + departmentType);
+		}
 	}
 }
