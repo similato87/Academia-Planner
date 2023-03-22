@@ -29,4 +29,9 @@ public class Student {
     public String getProgram(){ return program; }
     public void setProgram(String program){ this.program=program; }
     //Equals method needed?
+    
+    @Override
+    public String toString() {
+    	return "Student: " + this.name + "(" + studentID + "), " + program + ", " + campus;
+    }
 }

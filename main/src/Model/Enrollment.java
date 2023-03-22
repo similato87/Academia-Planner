@@ -1,21 +1,29 @@
 package Model;
 
 import java.util.*;
-public class Enrollment{
+public class Enrollment implements Registration{
     private int id;
     private Student student;
     private Course course;
     private Date termStart;
     private Date termEnd;
     private double grade;
-    //Take from a course grading scheme or a default grading?
-    private String letterGrade;
-    //Should probably be an enum PASSED,FAILED,WITHDRAWN,INPROGRESS
+    //Should probably be an enum WITHDRAWN,INPROGRESS
     private String status;
 
     public Enrollment(){
     }
 
+    public Enrollment(int id, Student student, Course course,
+        Date termStart, Date termEnd, double grade, String status){
+            this.id=id;
+            this.student=student;
+            this.course=course;
+            this.termStart=termStart;
+            this.termEnd=termEnd;
+            this.grade=grade;
+            this.status=status;
+    }
     public int getID(){ return id;}
     //Should probably not be modified
     public void setID(int id){ this.id=id; }
@@ -37,28 +45,6 @@ public class Enrollment{
 
     public double getGrade(){ return grade; }
     public void setGrade(double grade){ this.grade=grade; }
-
-    public String getLetterGrade(){ return letterGrade; }
-    public void updateLetterGrade() {
-        HashMap<Double,String> scheme = new HashMap<>();
-        scheme.put(95.0, "A+");
-        scheme.put(90.0, "A");
-        scheme.put(85.0, "A-");
-        scheme.put(80.0, "B+");
-        scheme.put(75.0, "B");
-        scheme.put(70.0, "B-");
-        scheme.put(65.0, "C+");
-        scheme.put(60.0, "C");
-        scheme.put(55.0, "C-");
-        scheme.put(50.0, "D");
-        scheme.put(0.0,"F");
-        double grade=this.grade;
-        for(double g: scheme.keySet()){
-            if(grade>=g){
-                letterGrade=scheme.get(g);
-            }
-        }
-    }
 
     public String getStatus(){ return status; }
     public void setStatus(String status){ this.status=status; }
