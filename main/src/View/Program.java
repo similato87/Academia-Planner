@@ -3,18 +3,20 @@ package View;
 import Model.*;
 
 import java.util.*;
-
-
-
+import Controller.Iterator;
+import Model.*;
+import javafx.scene.chart.PieChart.Data;
+import Controller.*;
 public class Program{
 	private static String prompt=
-			"0.) Exit Program\n"+
-					"1.) Add Student\n"+
-					"2.) Add Course\n"+
-					"3.) Add Student to course(Enrollment)\n"+
-					"4.) Generate Transcript\n"+
-					"5.) Edit an enrollment\n\n"+
-					"Your choice: ";
+		"\n0.) Exit Program\n"+
+		"1.) Add Student\n"+
+		"2.) Add Course\n"+
+		"3.) Add Student to course(Enrollment)\n"+
+		"4.) Generate Transcript\n"+
+		"5.) Edit an enrollment\n\n"+
+		"Your choice: ";
+
 	public static void main(String[] args) {
 		init();
 		boolean quit=false;
@@ -39,6 +41,10 @@ public class Program{
 					newCourse();break;
 				case 3:
 					addStudentToCourse();break;
+				case 4:
+					createTranscript();break;
+				case 5:
+					editEnrollment();break;
 				default:
 					System.out.println("No option selected. Please try again.\n");
 					break;
@@ -80,43 +86,57 @@ public class Program{
 		}
 		//Got the ID
 
-		System.out.print("Please input the Student's Name");
+		System.out.print("Please input the Student's Name: ");
 		String name=s.next();
-		System.out.print("Please input the Student's Campus");
+		System.out.print("Please input the Student's Campus: ");
 		String campus=s.next();
-		System.out.print("Please input the Student's Progress");
+		System.out.print("Please input the Student's Program: ");
 		String program=s.next();
-		s.close();
 
 		System.out.println("Adding new student to database.");
 		Database.getDB().addStudent(new Student(id,name,campus,program));
 	}
 
 	public static void newCourse(){
+		Database connection=Database.getDB();
 		Scanner s=new Scanner(System.in);
-		System.out.print("Please input the Course's Code");
+		System.out.print("Please input the Course's Code: ");
 		String code=s.next();
-		System.out.print("Please input the Course's Section");
+		System.out.print("Please input the Course's Section: ");
 		String section=s.next();
 		int hours=-1;
 		while(true){
-			System.out.print("Please input the Course's Credit Hours");
+			System.out.print("Please input the Course's Credit Hours: ");
 			try{
 				hours=s.nextInt();
 			}catch (InputMismatchException e){
 				System.out.println("No number detected. Please try again.");
 				continue;
-			}
-			break;
+			}break;
 		}
-		System.out.print("Please input the Course's Name");
-		String name=s.next();
-		System.out.print("Please input the Course's Description");
+		System.out.print("Please input the Course's Name: ");
+		//Consume the newline that have remained from s.next
+		s.nextLine();
+		String name=s.nextLine();
+
+		System.out.print("Please input the Course's Description: ");
+		//Consume the newline that have remained from s.next
+		s.nextLine();
 		String description=s.nextLine();
-		System.out.print("Please input the Course's Department");
+
+		System.out.print("Please input the Course's Department: ");
 		String dep=s.next();
+		Department department=DepartmentFactory.createDepartment(dep);
+		if(connection.getCourseMap().isEmpty()){
+			System.out.println("Adding new course to Database.");
+			Database.getDB().addCourse(new Course(code,section,hours,name,description,department));
+			return;
+		}
 		Department department=createDepartment(dep);
+    
 		System.out.print("Please input the Course's Prerequisites if there are any\nFormat: Course1 Course2 ...");
+		//Consume the newline that have remained from s.next
+		s.nextLine();
 		String[] courses=s.nextLine().split(" ");
 		ArrayList<String> courseList=new ArrayList<>();
 		for(String str: courses){
@@ -127,26 +147,146 @@ public class Program{
 				courseList.add(str);
 			}
 		}
-		s.close();
 		System.out.println("Adding new course to Database.");
-		Database.getDB().addCourse(new Course(code,section,hours,name,description,department, courseList));
-
+		Database.getDB().addCourse(new Course(code,section,hours,name,description,department, courseList));			
 	}
 
 	private static void addStudentToCourse(){
-		//TBD
+		Database connection=Database.getDB();
+		Iterator<Student> itr = new StudentIterator(connection.getStudentMap());
+		while(itr.hasNext()) {
+            Student val=itr.getNext();
+            System.out.println(val.getStudentID());
+		}
+		Student student=null;
+		Scanner s=new Scanner(System.in);
+		while(true){
+			System.out.print("Please input the desired student's id: ");
+			try{
+				int id=s.nextInt();
+				Student trial=connection.getStudent(id);
+				if(trial==null){
+					throw new IllegalArgumentException();
+				}
+				student=trial;
+			}catch (InputMismatchException e){
+				System.out.println("No number detected. Please try again.");
+				continue;
+			}catch (IllegalArgumentException e){
+				System.out.println("Id given does not correspond to any current student. Please try again.");
+			}
+			break;
+		}
+		//We have properly selected the students
+		Iterator<Course> citr=new CourseIterator(connection.getCourseMap());
+		while(citr.hasNext()) {
+            Course val=citr.getNext();
+            System.out.println(val.getCode());
+		}
+		Course course=null;
+		while(true){
+			System.out.print("Please input the desired course code: ");
+			try{
+				String code=s.next();
+				Course trial=Database.getDB().getCourse(code);
+				if(trial==null){
+					throw new IllegalArgumentException();
+				}
+				course=trial;
+			}catch (InputMismatchException e){
+				System.out.println("No number detected. Please try again.");
+				continue;
+			}catch (IllegalArgumentException e){
+				System.out.println("Id given does not correspond to any current course. Please try again.");
+			}
+			break;
+		}
+		Enrollment e=new EnrollmentBuilder()
+			.setId(connection.getEnrollments().size())
+			.setStudent(student)
+			.setCourse(course)
+			.setGrade(0)
+			.setStatus("INPROGRESS")
+			.build();
+		connection.addEnrollment(e);
 	}
 
-	private static Department createDepartment(String departmentType){
-		if (departmentType.equalsIgnoreCase("CS")) {
-			return new CSDepartmentFactory().createDepartment();
-		} else if (departmentType.equalsIgnoreCase("SWE")) {
-			return new SWEDepartmentFactory().createDepartment();
-		} else if( departmentType.equalsIgnoreCase("ECE")){
-			return new ECEDepartmentFactory().createDepartment();
+	public static void createTranscript(){
+		Database connection=Database.getDB();
+		Iterator<Student> itr = new StudentIterator(connection.getStudentMap());
+		while(itr.hasNext()) {
+            Student val=itr.getNext();
+            System.out.println(val.getStudentID());
 		}
-		else {
-			throw new IllegalArgumentException("Invalid department type: " + departmentType);
+		Student student=null;
+		Scanner s=new Scanner(System.in);
+		while(true){
+			System.out.print("Please input the desired student's id: ");
+			try{
+				int id=s.nextInt();
+				Student trial=connection.getStudent(id);
+				if(trial==null){
+					throw new IllegalArgumentException();
+				}
+				student=trial;
+			}catch (InputMismatchException e){
+				System.out.println("No number detected. Please try again.");
+				continue;
+			}catch (IllegalArgumentException e){
+				System.out.println("Id given does not correspond to any current student. Please try again.");
+			}
+			break;
+		}
+		Transcript t=new Transcript(student, connection.findAllEnrollmentsFromStudent(student));
+		System.out.println(t.toString());
+	}
+
+	public static void editEnrollment(){
+		Database connection=Database.getDB();
+		EnrollmentProxy enrollmentProxy=new EnrollmentProxy("1234");
+		Scanner s=new Scanner(System.in);
+		System.out.println("Please input the admin password: ");
+		String pass=s.next();
+
+		Iterator<Enrollment> itr=new EnrollmentIterator(connection.getEnrollments());
+		while(itr.hasNext()) {
+            Enrollment val=itr.getNext();
+            System.out.println(val.getID());
+		}
+		Enrollment enrollment=null;
+		while(true){
+			System.out.print("Please input the desired enrollment id: ");
+			try{
+				int id=s.nextInt();
+				Enrollment trial=connection.getEnrollment(id);
+				if(trial==null){
+					throw new IllegalArgumentException();
+				}
+				enrollment=trial;
+			}catch (InputMismatchException e){
+				System.out.println("No number detected. Please try again.");
+				continue;
+			}catch (IllegalArgumentException e){
+				System.out.println("Id given does not correspond to any current student. Please try again.");
+			}
+			break;
+		}
+		double newGrade=-1;
+		while(true){
+			System.out.println("What is the new grade: ");
+			try{
+				newGrade=s.nextDouble();
+			}catch (InputMismatchException e){
+				System.out.println("No number detected. Please try again.");
+				continue;
+			}
+			break;
+		}
+		System.out.println("Attempting to edit Enrollment"+enrollment.getID());
+		try{
+			enrollmentProxy.editEnrollment(pass, enrollment, newGrade);
+		}catch(SecurityException e){
+			System.out.println("Failed to authenticate. Returning to main menu");
 		}
 	}
 }
