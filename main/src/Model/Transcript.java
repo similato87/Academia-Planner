@@ -37,7 +37,10 @@ public class Transcript implements Registration
 
 		for (Enrollment e: enrollments)
 		{
-			print.append(e.getCourse().getName() + "\t" + e.getCourse().getCreditHours() + "\t" + e.getGrade()+"\n");
+			RecordAdapter recordAdapter= new RecordAdapter(e);
+        		String record = new String();
+        		record+=recordAdapter.getCode()+" "+recordAdapter.getCourseName()+" "+recordAdapter.getLetterGrade()+" "+recordAdapter.getPoints();
+        		System.out.println(record);
 		}
 		print.append("Average Percentage: " + this.getGrade()+"\n");
 		return String.valueOf(print);
