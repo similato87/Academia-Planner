@@ -71,9 +71,9 @@ public class Demo {
         db.addEnrollment(e3);
         System.out.println("Search for student with ID: 3333333");
         System.out.println(db.getStudent(3333333));
-        System.out.println("Search for course with code: CS1073");
+        System.out.println("\nSearch for course with code: CS1073");
         System.out.println(db.getCourse("CS1073"));
-        System.out.println("Search for enrollment with ID: 1");
+        System.out.println("\nSearch for enrollment with ID: 1");
         System.out.println(db.getEnrollment(1));
 
     }
