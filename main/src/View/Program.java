@@ -1,11 +1,11 @@
 package View;
 
+import Controller.DepartmentFactory;
 import Model.*;
 
 import java.util.*;
 import Controller.Iterator;
 import Model.*;
-import javafx.scene.chart.PieChart.Data;
 import Controller.*;
 public class Program{
 	private static String prompt=
@@ -126,13 +126,12 @@ public class Program{
 
 		System.out.print("Please input the Course's Department: ");
 		String dep=s.next();
-		Department department=DepartmentFactory.createDepartment(dep);
+		Department department= DepartmentFactory.createDepartment(dep);
 		if(connection.getCourseMap().isEmpty()){
 			System.out.println("Adding new course to Database.");
 			Database.getDB().addCourse(new Course(code,section,hours,name,description,department));
 			return;
 		}
-		Department department=createDepartment(dep);
     
 		System.out.print("Please input the Course's Prerequisites if there are any\nFormat: Course1 Course2 ...");
 		//Consume the newline that have remained from s.next
@@ -284,7 +283,7 @@ public class Program{
 		}
 		System.out.println("Attempting to edit Enrollment"+enrollment.getID());
 		try{
-			enrollmentProxy.editEnrollment(pass, enrollment, newGrade);
+			enrollmentProxy.editGrade(pass, enrollment, newGrade);
 		}catch(SecurityException e){
 			System.out.println("Failed to authenticate. Returning to main menu");
 		}
