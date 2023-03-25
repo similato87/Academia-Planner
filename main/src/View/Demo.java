@@ -18,15 +18,14 @@ public class Demo {
         Student s1 = new Student(3333333, "John Doe", "Fredericton", "Business");
         Student s2 = new Student(4444444, "Mary Smith", "Saint John", "Computer Science");
 
-        // Yuzhuo Factory method
-
-        Department csdprt = new CSDepartmentFactory().createDepartment();
-        Department swedprt = new SWEDepartmentFactory().createDepartment();
-
         // init three course to show different prerequsites and departments
         Course c1 = new Course("CS1073", "FR01A", 4, "Java I", "Introduction to Java I", csdprt);
         Course c2 = new Course("CS1083", "FR01A", 4, "Java II", "Introduction to Java II", csdprt);
         Course c3 = new Course("SWE4403", "FR01A", 4, "Software Design Patterns and Architecture", "GoF software design patterns", swedprt);
+        
+        // Yuzhuo Factory method
+        Department csdprt = new CSDepartmentFactory().createDepartment();
+        Department swedprt = new SWEDepartmentFactory().createDepartment();
 
         // Luc builder
         EnrollmentBuilder enrollmentBuilder = new EnrollmentBuilder();
@@ -39,14 +38,10 @@ public class Demo {
         TimeUnit.SECONDS.sleep(1);
         enrollmentBuilder.setTermEnd(new Date());
         Enrollment e1 = enrollmentBuilder.build();
-        // modify grades
-
 
         // Yuzhuo proxy
         EnrollmentProxy ep1 = new EnrollmentProxy("123");
         ep1.editGrade("123",e1,90.0);
-
-
 
         // Hannah decorator
         RecordAdapter recordAdapter= new RecordAdapter(e1);
