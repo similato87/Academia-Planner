@@ -43,7 +43,7 @@ public class Demo {
         EnrollmentProxy ep1 = new EnrollmentProxy("123");
         ep1.editGrade("123",e1,90.0);
 
-        // Hannah decorator
+        // Hannah adaptor
         RecordAdapter recordAdapter= new RecordAdapter(e1);
         String record = new String();
         record+=recordAdapter.getCode()+" "+recordAdapter.getCourseName()+" "+recordAdapter.getLetterGrade()+" "+recordAdapter.getPoints();
