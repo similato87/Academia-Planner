@@ -17,9 +17,8 @@ public class Demo {
         // init two student
         Student s1 = new Student(3333333, "John Doe", "Fredericton", "Business");
         Student s2 = new Student(4444444, "Mary Smith", "Saint John", "Computer Science");
-
+        
         // Yuzhuo Factory method
-
         Department csdprt = new CSDepartmentFactory().createDepartment();
         Department swedprt = new SWEDepartmentFactory().createDepartment();
 
@@ -39,16 +38,12 @@ public class Demo {
         TimeUnit.SECONDS.sleep(1);
         enrollmentBuilder.setTermEnd(new Date());
         Enrollment e1 = enrollmentBuilder.build();
-        // modify grades
-
 
         // Yuzhuo proxy
         EnrollmentProxy ep1 = new EnrollmentProxy("123");
         ep1.editGrade("123",e1,90.0);
 
-
-
-        // Hannah decorator
+        // Hannah adaptor
         RecordAdapter recordAdapter= new RecordAdapter(e1);
         String record = new String();
         record+=recordAdapter.getCode()+" "+recordAdapter.getCourseName()+" "+recordAdapter.getLetterGrade()+" "+recordAdapter.getPoints();
@@ -72,10 +67,14 @@ public class Demo {
         db.addCourse(c1);
         db.addCourse(c2);
         db.addCourse(c3);
-        System.out.println( db.getStudent(3333333));
-        System.out.println( db.getCourse("CS1073"));
-
-
+        db.addEnrollment(e2);
+        db.addEnrollment(e3);
+        System.out.println("Search for student with ID: 3333333");
+        System.out.println(db.getStudent(3333333));
+        System.out.println("\nSearch for course with code: CS1073");
+        System.out.println(db.getCourse("CS1073"));
+        System.out.println("\nSearch for enrollment with ID: 1");
+        System.out.println(db.getEnrollment(1));
 
     }
 }

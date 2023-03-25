@@ -55,7 +55,7 @@ public class Database{
         Iterator<Course> itr=new CourseIterator(courses);
         while(itr.hasNext()) {
             Course val=itr.getNext();
-            if(val.getCode()==courseCode){
+            if(val.getCode().equals(courseCode)){
                 return val;
             }
 		}
@@ -71,4 +71,28 @@ public class Database{
         return enrollments;
     }
 
+    public void addEnrollment(Enrollment e){
+        enrollments.add(e);
+    }
+
+    public List<Enrollment> findAllEnrollmentsFromStudent(Student s){
+        ArrayList<Enrollment> studentEnrolls=new ArrayList<>();
+        for(Enrollment e: enrollments){
+            if(e.getStudent().equals(s)){
+                studentEnrolls.add(e);
+            }
+        }
+        return studentEnrolls;
+    }
+
+    public Enrollment getEnrollment(int id){
+        Iterator<Enrollment> itr=new EnrollmentIterator(enrollments);
+        while(itr.hasNext()) {
+            Enrollment val=itr.getNext();
+            if(val.getID()==id){
+                return val;
+            }
+		}
+        return null;
+    }
 }
