@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.List;
+import Controller.RecordAdapter;
 
 public class Transcript implements Registration 
 {
