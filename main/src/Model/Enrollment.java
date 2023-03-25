@@ -48,4 +48,9 @@ public class Enrollment implements Registration{
 
     public String getStatus(){ return status; }
     public void setStatus(String status){ this.status=status; }
+    
+    @Override
+    public String toString() {
+    	return "Enrollment (" + id + "): " + student.getName() + "(" + student.getStudentID() + ")\t" + course.getCode() + "\t" + grade + "\t" + status;
+    }
 }
