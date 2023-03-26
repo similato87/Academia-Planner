@@ -35,14 +35,14 @@ public class Transcript implements Registration
 	{
 		StringBuffer print = new StringBuffer();
 		print.append("Transcript of " +student.getName()+"(ID:"+ student.getStudentID()+")"+"\n");
-
+		
+		String record = new String();
 		for (Enrollment e: enrollments)
 		{
 			RecordAdapter recordAdapter= new RecordAdapter(e);
-        		String record = new String();
-        		record+=recordAdapter.getCode()+" "+recordAdapter.getCourseName()+" "+recordAdapter.getLetterGrade()+" "+recordAdapter.getPoints();
-        		System.out.println(record);
+        		record+=recordAdapter.getCode()+"\t"+recordAdapter.getCourseName()+"\t"+recordAdapter.getLetterGrade()+"\t"+recordAdapter.getPoints()+"\n";
 		}
+		print.append(record);
 		print.append("Average Percentage: " + this.getGrade()+"\n");
 		return String.valueOf(print);
 	}
